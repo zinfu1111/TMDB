@@ -9,21 +9,33 @@
 /* Begin PBXBuildFile section */
 		9C15EBCA263682F1007CA696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C15EBC9263682F1007CA696 /* AppDelegate.swift */; };
 		9C15EBCC263682F1007CA696 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C15EBCB263682F1007CA696 /* SceneDelegate.swift */; };
-		9C15EBCE263682F1007CA696 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C15EBCD263682F1007CA696 /* ViewController.swift */; };
 		9C15EBD1263682F1007CA696 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C15EBCF263682F1007CA696 /* Main.storyboard */; };
 		9C15EBD3263682F7007CA696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C15EBD2263682F7007CA696 /* Assets.xcassets */; };
 		9C15EBD6263682F7007CA696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C15EBD4263682F7007CA696 /* LaunchScreen.storyboard */; };
+		9C15EBE226369301007CA696 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C15EBE126369301007CA696 /* DataManager.swift */; };
+		9C15EBF526370AF1007CA696 /* APIServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C15EBF426370AF1007CA696 /* APIServiceConfig.swift */; };
+		9C7BA466263F9BB40086839B /* VideoCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7BA464263F9BB40086839B /* VideoCardViewCell.swift */; };
+		9C7BA467263F9BB40086839B /* VideoCardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C7BA465263F9BB40086839B /* VideoCardViewCell.xib */; };
+		9CD4F97926424E30004ED9F0 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F97826424E30004ED9F0 /* PopularViewController.swift */; };
+		9CD4F97C26424E5C004ED9F0 /* TopRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F97B26424E5C004ED9F0 /* TopRateViewController.swift */; };
+		9CD4F98126426D39004ED9F0 /* ViewSizeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F98026426D39004ED9F0 /* ViewSizeConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9C15EBC6263682F1007CA696 /* TMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C15EBC9263682F1007CA696 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C15EBCB263682F1007CA696 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9C15EBCD263682F1007CA696 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9C15EBD0263682F1007CA696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9C15EBD2263682F7007CA696 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C15EBD5263682F7007CA696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C15EBD7263682F7007CA696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C15EBE126369301007CA696 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		9C15EBF426370AF1007CA696 /* APIServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceConfig.swift; sourceTree = "<group>"; };
+		9C7BA464263F9BB40086839B /* VideoCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCardViewCell.swift; sourceTree = "<group>"; };
+		9C7BA465263F9BB40086839B /* VideoCardViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCardViewCell.xib; sourceTree = "<group>"; };
+		9CD4F97826424E30004ED9F0 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
+		9CD4F97B26424E5C004ED9F0 /* TopRateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRateViewController.swift; sourceTree = "<group>"; };
+		9CD4F98026426D39004ED9F0 /* ViewSizeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,13 +68,19 @@
 		9C15EBC8263682F1007CA696 /* TMDB */ = {
 			isa = PBXGroup;
 			children = (
-				9C15EBC9263682F1007CA696 /* AppDelegate.swift */,
-				9C15EBCB263682F1007CA696 /* SceneDelegate.swift */,
-				9C15EBCD263682F1007CA696 /* ViewController.swift */,
-				9C15EBCF263682F1007CA696 /* Main.storyboard */,
-				9C15EBD2263682F7007CA696 /* Assets.xcassets */,
-				9C15EBD4263682F7007CA696 /* LaunchScreen.storyboard */,
 				9C15EBD7263682F7007CA696 /* Info.plist */,
+				9C15EBF426370AF1007CA696 /* APIServiceConfig.swift */,
+				9C15EBC9263682F1007CA696 /* AppDelegate.swift */,
+				9C15EBE126369301007CA696 /* DataManager.swift */,
+				9CD4F97826424E30004ED9F0 /* PopularViewController.swift */,
+				9C15EBCB263682F1007CA696 /* SceneDelegate.swift */,
+				9CD4F97B26424E5C004ED9F0 /* TopRateViewController.swift */,
+				9C7BA464263F9BB40086839B /* VideoCardViewCell.swift */,
+				9CD4F98026426D39004ED9F0 /* ViewSizeConfig.swift */,
+				9C15EBD2263682F7007CA696 /* Assets.xcassets */,
+				9C7BA465263F9BB40086839B /* VideoCardViewCell.xib */,
+				9C15EBD4263682F7007CA696 /* LaunchScreen.storyboard */,
+				9C15EBCF263682F1007CA696 /* Main.storyboard */,
 			);
 			path = TMDB;
 			sourceTree = "<group>";
@@ -126,6 +144,7 @@
 			files = (
 				9C15EBD6263682F7007CA696 /* LaunchScreen.storyboard in Resources */,
 				9C15EBD3263682F7007CA696 /* Assets.xcassets in Resources */,
+				9C7BA467263F9BB40086839B /* VideoCardViewCell.xib in Resources */,
 				9C15EBD1263682F1007CA696 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,9 +156,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C15EBCE263682F1007CA696 /* ViewController.swift in Sources */,
 				9C15EBCA263682F1007CA696 /* AppDelegate.swift in Sources */,
+				9C7BA466263F9BB40086839B /* VideoCardViewCell.swift in Sources */,
+				9C15EBF526370AF1007CA696 /* APIServiceConfig.swift in Sources */,
+				9CD4F98126426D39004ED9F0 /* ViewSizeConfig.swift in Sources */,
+				9CD4F97C26424E5C004ED9F0 /* TopRateViewController.swift in Sources */,
+				9CD4F97926424E30004ED9F0 /* PopularViewController.swift in Sources */,
 				9C15EBCC263682F1007CA696 /* SceneDelegate.swift in Sources */,
+				9C15EBE226369301007CA696 /* DataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
