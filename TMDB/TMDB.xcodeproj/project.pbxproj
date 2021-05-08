@@ -16,6 +16,8 @@
 		9C15EBF526370AF1007CA696 /* APIServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C15EBF426370AF1007CA696 /* APIServiceConfig.swift */; };
 		9C7BA466263F9BB40086839B /* VideoCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7BA464263F9BB40086839B /* VideoCardViewCell.swift */; };
 		9C7BA467263F9BB40086839B /* VideoCardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C7BA465263F9BB40086839B /* VideoCardViewCell.xib */; };
+		9CA4465826467E400063F7BF /* PopularModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA4465726467E400063F7BF /* PopularModel.swift */; };
+		9CA4465B26467E4E0063F7BF /* TopRateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA4465A26467E4E0063F7BF /* TopRateModel.swift */; };
 		9CD4F97926424E30004ED9F0 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F97826424E30004ED9F0 /* PopularViewController.swift */; };
 		9CD4F97C26424E5C004ED9F0 /* TopRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F97B26424E5C004ED9F0 /* TopRateViewController.swift */; };
 		9CD4F98126426D39004ED9F0 /* ViewSizeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F98026426D39004ED9F0 /* ViewSizeConfig.swift */; };
@@ -33,6 +35,8 @@
 		9C15EBF426370AF1007CA696 /* APIServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceConfig.swift; sourceTree = "<group>"; };
 		9C7BA464263F9BB40086839B /* VideoCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCardViewCell.swift; sourceTree = "<group>"; };
 		9C7BA465263F9BB40086839B /* VideoCardViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCardViewCell.xib; sourceTree = "<group>"; };
+		9CA4465726467E400063F7BF /* PopularModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularModel.swift; sourceTree = "<group>"; };
+		9CA4465A26467E4E0063F7BF /* TopRateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRateModel.swift; sourceTree = "<group>"; };
 		9CD4F97826424E30004ED9F0 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
 		9CD4F97B26424E5C004ED9F0 /* TopRateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRateViewController.swift; sourceTree = "<group>"; };
 		9CD4F98026426D39004ED9F0 /* ViewSizeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeConfig.swift; sourceTree = "<group>"; };
@@ -69,20 +73,70 @@
 			isa = PBXGroup;
 			children = (
 				9C15EBD7263682F7007CA696 /* Info.plist */,
-				9C15EBF426370AF1007CA696 /* APIServiceConfig.swift */,
-				9C15EBC9263682F1007CA696 /* AppDelegate.swift */,
-				9C15EBE126369301007CA696 /* DataManager.swift */,
-				9CD4F97826424E30004ED9F0 /* PopularViewController.swift */,
-				9C15EBCB263682F1007CA696 /* SceneDelegate.swift */,
-				9CD4F97B26424E5C004ED9F0 /* TopRateViewController.swift */,
-				9C7BA464263F9BB40086839B /* VideoCardViewCell.swift */,
-				9CD4F98026426D39004ED9F0 /* ViewSizeConfig.swift */,
+				9CA4465626467E040063F7BF /* Manager */,
+				9CA4465526467DD30063F7BF /* SupportFile */,
+				9CA4465426467D650063F7BF /* Xib */,
+				9CA4465326467D5D0063F7BF /* View */,
+				9CA4465226467D530063F7BF /* Model */,
+				9CA4465126467D420063F7BF /* Controller */,
 				9C15EBD2263682F7007CA696 /* Assets.xcassets */,
-				9C7BA465263F9BB40086839B /* VideoCardViewCell.xib */,
 				9C15EBD4263682F7007CA696 /* LaunchScreen.storyboard */,
 				9C15EBCF263682F1007CA696 /* Main.storyboard */,
 			);
 			path = TMDB;
+			sourceTree = "<group>";
+		};
+		9CA4465126467D420063F7BF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9CD4F97826424E30004ED9F0 /* PopularViewController.swift */,
+				9CD4F97B26424E5C004ED9F0 /* TopRateViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9CA4465226467D530063F7BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9CA4465726467E400063F7BF /* PopularModel.swift */,
+				9CA4465A26467E4E0063F7BF /* TopRateModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9CA4465326467D5D0063F7BF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9C7BA464263F9BB40086839B /* VideoCardViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9CA4465426467D650063F7BF /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				9C7BA465263F9BB40086839B /* VideoCardViewCell.xib */,
+			);
+			path = Xib;
+			sourceTree = "<group>";
+		};
+		9CA4465526467DD30063F7BF /* SupportFile */ = {
+			isa = PBXGroup;
+			children = (
+				9C15EBCB263682F1007CA696 /* SceneDelegate.swift */,
+				9C15EBF426370AF1007CA696 /* APIServiceConfig.swift */,
+				9CD4F98026426D39004ED9F0 /* ViewSizeConfig.swift */,
+				9C15EBC9263682F1007CA696 /* AppDelegate.swift */,
+			);
+			path = SupportFile;
+			sourceTree = "<group>";
+		};
+		9CA4465626467E040063F7BF /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9C15EBE126369301007CA696 /* DataManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,8 +210,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CA4465826467E400063F7BF /* PopularModel.swift in Sources */,
 				9C15EBCA263682F1007CA696 /* AppDelegate.swift in Sources */,
 				9C7BA466263F9BB40086839B /* VideoCardViewCell.swift in Sources */,
+				9CA4465B26467E4E0063F7BF /* TopRateModel.swift in Sources */,
 				9C15EBF526370AF1007CA696 /* APIServiceConfig.swift in Sources */,
 				9CD4F98126426D39004ED9F0 /* ViewSizeConfig.swift in Sources */,
 				9CD4F97C26424E5C004ED9F0 /* TopRateViewController.swift in Sources */,

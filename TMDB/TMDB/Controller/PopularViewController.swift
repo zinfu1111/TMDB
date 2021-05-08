@@ -57,11 +57,12 @@ extension PopularViewController:UICollectionViewDataSource, UICollectionViewDele
         
         
         if let imageURL = URL(string: "\(baseImgURL)\(data?.poster_path ?? "")"){
-            DataManager.shared.fetchImage(url: imageURL, completionHandler: { (image) in
+            DataManager.shared.fetchImage(url: imageURL, completionHandler: { (image,url) in
                 
                 DispatchQueue.main.async {
-                    cell.videoImageView.image = image
-                    
+                    if imageURL == url {
+                        cell.videoImageView.image = image
+                    }
                 }
                 
             })

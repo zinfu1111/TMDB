@@ -8,58 +8,6 @@
 import UIKit
 import Foundation
 
-struct PopularResponse:Codable {
-    var page = 0
-    var total_results = 0
-    var total_pages = 0
-    var results:[PopularModel] = []
-}
-
-struct TopRatedResponse:Codable {
-    var page = 0
-    var total_results = 0
-    var total_pages = 0
-    var results:[TopRatedModel] = []
-}
-
-struct PopularModel:Codable {
-    
-    var poster_path:String? = nil
-    var adult = false
-    var overview = ""
-    var release_date = ""
-    var genre_ids:[Int] = []
-    var id = 0
-    var original_title = ""
-    var original_language = ""
-    var title = ""
-    var backdrop_path:String? = nil
-    var popularity = 0.0
-    var vote_count = 0
-    var video = false
-    var vote_average = 0.0
-    
-}
-
-struct TopRatedModel:Codable {
-    
-    var poster_path:String? = nil
-    var popularity = 0.0
-    var id = 0
-    var backdrop_path:String? = nil
-    var vote_average = 0.0
-    var overview = ""
-    var first_air_date = ""
-    var origin_country:[String] = []
-    var genre_ids:[Int] = []
-    var original_language = ""
-    var name = ""
-    var vote_count = 0
-    var original_name = ""
-    
-}
-
-
 class DataManager {
     
     static let shared = DataManager()
@@ -103,17 +51,17 @@ class DataManager {
         task.resume()
     }
     
-    func fetchImage(url: URL, completionHandler: @escaping (UIImage?) -> ()) {
+    func fetchImage(url: URL, completionHandler: @escaping (UIImage?,URL) -> ()) {
         if let image = imageCache.object(forKey: url as NSURL) {
-            completionHandler(image)
+            completionHandler(image,url)
             return
         }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let data = data, let image = UIImage(data: data) {
                 self.imageCache.setObject(image, forKey: url as NSURL)
-                completionHandler(image)
+                completionHandler(image,url)
             } else {
-                completionHandler(nil)
+                completionHandler(nil,url)
             }
         }.resume()
     }
