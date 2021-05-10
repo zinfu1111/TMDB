@@ -36,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QNo-AF-TE1">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="75" width="414" height="738"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i8e-Zp-n0u">
                                     <size key="itemSize" width="200" height="400"/>
@@ -46,13 +46,26 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Kez-4c-q8C">
+                                <rect key="frame" x="134.5" y="44" width="145" height="32"/>
+                                <segments>
+                                    <segment title="TV"/>
+                                    <segment title="Movie"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onChangeWithSender:" destination="BYZ-38-t0r" eventType="valueChanged" id="RuK-Sa-xeh"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Kez-4c-q8C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bjc-Wu-Vbx"/>
+                            <constraint firstItem="Kez-4c-q8C" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Nt9-bj-HEr"/>
                             <constraint firstItem="QNo-AF-TE1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="RJx-wl-Xma"/>
+                            <constraint firstItem="QNo-AF-TE1" firstAttribute="top" secondItem="Kez-4c-q8C" secondAttribute="bottom" id="TtH-dH-bhI"/>
+                            <constraint firstItem="Kez-4c-q8C" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.35" id="Z24-hS-Wk0"/>
                             <constraint firstItem="QNo-AF-TE1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="o4d-3b-UFw"/>
-                            <constraint firstItem="QNo-AF-TE1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ove-BE-EiO"/>
                             <constraint firstItem="QNo-AF-TE1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wAs-H6-04h"/>
                         </constraints>
                     </view>
@@ -74,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="D9X-st-bF2">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="75" width="414" height="738"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="97j-fT-VPw">
                                     <size key="itemSize" width="128" height="128"/>
@@ -84,14 +97,27 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PHU-gi-UZ0">
+                                <rect key="frame" x="134.5" y="44" width="145" height="32"/>
+                                <segments>
+                                    <segment title="TV"/>
+                                    <segment title="Movie"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onChangeWithSender:" destination="G7g-Oz-liz" eventType="valueChanged" id="Tv3-Cw-6Ja"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="oqr-4K-Pfc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="D9X-st-bF2" firstAttribute="top" secondItem="PHU-gi-UZ0" secondAttribute="bottom" id="1r2-bv-Obl"/>
                             <constraint firstItem="oqr-4K-Pfc" firstAttribute="trailing" secondItem="D9X-st-bF2" secondAttribute="trailing" id="Ccc-rR-Cop"/>
                             <constraint firstItem="oqr-4K-Pfc" firstAttribute="bottom" secondItem="D9X-st-bF2" secondAttribute="bottom" id="ZRN-aN-1Qo"/>
-                            <constraint firstItem="D9X-st-bF2" firstAttribute="top" secondItem="oqr-4K-Pfc" secondAttribute="top" id="ixu-Dn-ZmR"/>
+                            <constraint firstItem="PHU-gi-UZ0" firstAttribute="top" secondItem="oqr-4K-Pfc" secondAttribute="top" id="ha8-Us-ZQX"/>
+                            <constraint firstItem="PHU-gi-UZ0" firstAttribute="centerX" secondItem="XV8-m0-Ib6" secondAttribute="centerX" id="jKa-uM-Sbq"/>
                             <constraint firstItem="D9X-st-bF2" firstAttribute="leading" secondItem="oqr-4K-Pfc" secondAttribute="leading" id="tDD-QW-xWH"/>
+                            <constraint firstItem="PHU-gi-UZ0" firstAttribute="width" secondItem="XV8-m0-Ib6" secondAttribute="width" multiplier="0.35" id="yRB-nn-7f1"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="popular" image="square.3.stack.3d.top.fill" catalog="system" id="LAW-lL-fuW"/>

@@ -8,19 +8,38 @@
 import UIKit
 import Foundation
 
+enum ShowType {
+    case TopRate
+    case Popular
+}
+
+enum DataType:Int {
+    case TV = 0
+    case Movie = 1
+}
+
 class DataManager {
     
     static let shared = DataManager()
     let imageCache = NSCache<NSURL, UIImage>()
     
-    func fetchPopular(completion: @escaping (Result<PopularResponse, Error>) -> Void) {
-        let popularURL = APIURL.GetPopular.url
-        print("url \(popularURL)")
-        let task = URLSession.shared.dataTask(with: popularURL) { (data, response, error) in
+    func fetchMovieData(type: ShowType,completion: @escaping (Result<MovieResponse, Error>) -> Void) {
+        
+        var url:URL?
+        
+        if type == .TopRate {
+            url = APIURL.movie_GetTopRated.url
+        }else {
+            url = APIURL.movie_GetPopular.url
+        }
+        
+        guard let taskURL = url else { return }
+        
+        let task = URLSession.shared.dataTask(with: taskURL) { (data, response, error) in
             if let data = data {
                 do {
                     let jsonDecoder = JSONDecoder()
-                    let popularResponse = try jsonDecoder.decode(PopularResponse.self, from: data)
+                    let popularResponse = try jsonDecoder.decode(MovieResponse.self, from: data)
                     completion(.success(popularResponse))
                 } catch {
                     completion(.failure(error))
@@ -32,14 +51,22 @@ class DataManager {
         task.resume()
     }
     
-    func fetchTopRated(completion: @escaping (Result<TopRatedResponse, Error>) -> Void) {
-        let popularURL = APIURL.GetTopRated.url
-        print("url \(popularURL)")
-        let task = URLSession.shared.dataTask(with: popularURL) { (data, response, error) in
+    func fetchTVData(type: ShowType,completion: @escaping (Result<TVResponse, Error>) -> Void) {
+        var url:URL?
+        
+        if type == .TopRate {
+            url = APIURL.tv_GetTopRated.url
+        }else {
+            url = APIURL.tv_GetPopular.url
+        }
+        
+        guard let taskURL = url else { return }
+        
+        let task = URLSession.shared.dataTask(with: taskURL) { (data, response, error) in
             if let data = data {
                 do {
                     let jsonDecoder = JSONDecoder()
-                    let topRatedResponse = try jsonDecoder.decode(TopRatedResponse.self, from: data)
+                    let topRatedResponse = try jsonDecoder.decode(TVResponse.self, from: data)
                     completion(.success(topRatedResponse))
                 } catch {
                     completion(.failure(error))

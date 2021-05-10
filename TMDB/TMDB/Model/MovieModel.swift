@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct PopularResponse:Codable {
+struct MovieResponse:Codable {
     var page:Int
     var total_results:Int
     var total_pages:Int
-    var results:[PopularModel]
+    var results:[MovieModel]
 }
 
-struct PopularModel:Codable {
+struct MovieModel:Codable {
     
     var poster_path:String?
     var adult:Bool

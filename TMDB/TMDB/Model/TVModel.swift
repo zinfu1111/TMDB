@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct TopRatedResponse:Codable {
+struct TVResponse:Codable {
     var page:Int
     var total_results:Int
     var total_pages:Int
-    var results:[TopRatedModel]
+    var results:[TVModel]
 }
 
-struct TopRatedModel:Codable {
+struct TVModel:Codable {
     
     var poster_path:String?
     var popularity:Float

@@ -36,16 +36,22 @@ enum APIURL:String {
     }
     
     
-    case GetTopRated
-    case GetPopular
+    case tv_GetTopRated
+    case tv_GetPopular
+    case movie_GetTopRated
+    case movie_GetPopular
     
     public func getRoute() -> String {
         var resource = ""
         
         switch self {
-        case .GetTopRated:
+        case .tv_GetTopRated:
             resource = "/tv/top_rated"
-        case .GetPopular:
+        case .tv_GetPopular:
+            resource = "/tv/popular"
+        case .movie_GetTopRated:
+            resource = "/movie/top_rated"
+        case .movie_GetPopular:
             resource = "/movie/popular"
         }
         
