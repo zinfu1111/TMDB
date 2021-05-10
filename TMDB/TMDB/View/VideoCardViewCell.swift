@@ -20,6 +20,12 @@ class VideoCardViewCell: UICollectionViewCell {
         // Initialization code
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        videoImageView.image = nil
+    }
+    
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         voteLabel.layer.cornerRadius = voteLabel.bounds.midX

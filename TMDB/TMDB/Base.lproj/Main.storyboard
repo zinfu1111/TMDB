@@ -56,7 +56,7 @@
                             <constraint firstItem="QNo-AF-TE1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wAs-H6-04h"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="topRated" id="3C4-Fl-lKk"/>
+                    <tabBarItem key="tabBarItem" title="topRated" image="tray.and.arrow.up" catalog="system" id="3C4-Fl-lKk"/>
                     <connections>
                         <outlet property="topRateCollectionView" destination="QNo-AF-TE1" id="7gY-U2-FzZ"/>
                     </connections>
@@ -94,7 +94,7 @@
                             <constraint firstItem="D9X-st-bF2" firstAttribute="leading" secondItem="oqr-4K-Pfc" secondAttribute="leading" id="tDD-QW-xWH"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="popular" id="LAW-lL-fuW"/>
+                    <tabBarItem key="tabBarItem" title="popular" image="square.3.stack.3d.top.fill" catalog="system" id="LAW-lL-fuW"/>
                     <connections>
                         <outlet property="popularCollectionView" destination="D9X-st-bF2" id="gj6-v6-Chq"/>
                     </connections>
@@ -105,6 +105,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="square.3.stack.3d.top.fill" catalog="system" width="128" height="124"/>
+        <image name="tray.and.arrow.up" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
