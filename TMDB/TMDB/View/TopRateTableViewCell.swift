@@ -67,47 +67,36 @@ class TopRateTableViewCell: UITableViewCell {
         //抓取資料
         fetchMovieData()
         //設定Banner輪播
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(loopBanner), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(loopBanner), userInfo: nil, repeats: true)
     }
     
     
     @objc func loopBanner(){
         if dataType == .TV {
-            
             guard let tvCount = self.tvData?.results.count, tvCount != 0 else { return }
             
-            DispatchQueue.main.async {
-                
-                var indexPath: IndexPath
-                self.currentIndex += 1
-                
-                if self.currentIndex < tvCount {
-                    indexPath = IndexPath(item: self.currentIndex, section: 0)
-                    self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-                }else{
-                    self.currentIndex = 0
-                    indexPath = IndexPath(item: self.currentIndex, section: 0)
-                    self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
-                    
-                }
-            }
+            loop(dataCount: tvCount)
         }else{
             guard let movieCount = self.movieData?.results.count, movieCount != 0 else { return }
             
-            DispatchQueue.main.async {
+            loop(dataCount: movieCount)
+        }
+    }
+    
+    func loop(dataCount:Int) {
+        DispatchQueue.main.async {
+            
+            var indexPath: IndexPath
+            self.currentIndex += 1
+            
+            if self.currentIndex < dataCount {
+                indexPath = IndexPath(item: self.currentIndex, section: 0)
+                self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            }else{
+                self.currentIndex = 0
+                indexPath = IndexPath(item: self.currentIndex, section: 0)
+                self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
                 
-                var indexPath: IndexPath
-                self.currentIndex += 1
-                
-                if self.currentIndex < movieCount {
-                    indexPath = IndexPath(item: self.currentIndex, section: 0)
-                    self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-                }else{
-                    self.currentIndex = 0
-                    indexPath = IndexPath(item: self.currentIndex, section: 0)
-                    self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
-                    
-                }
             }
         }
     }
@@ -143,7 +132,63 @@ class TopRateTableViewCell: UITableViewCell {
             }
         })
     }
-
+    
+    func videoCardCell(_ collectionView: UICollectionView,indexPath:IndexPath) -> VideoCardViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCard", for: indexPath) as! VideoCardViewCell
+        
+        
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.5
+        cell.layer.shadowOffset = CGSize(width: 0, height: 10)
+        
+        let data = tvData?.results[indexPath.row]
+        
+        if let imageURL = URL(string: "\(baseImgURL)\(data?.poster_path ?? "")"){
+            DataManager.shared.fetchImage(url: imageURL, completionHandler: { (image,url) in
+                
+                DispatchQueue.main.async {
+                    if imageURL == url {
+                        cell.videoImageView.image = image
+                    }
+                }
+                
+            })
+        }
+        
+        cell.dateLabel.text = data?.first_air_date
+        cell.titleLabel.text = data?.name
+        cell.voteLabel.text = String(data?.vote_average ?? 0.0)
+        cell.tag = data?.id ?? 0
+        
+        return cell
+    }
+    
+    func bannerViewCell(_ collectionView: UICollectionView,indexPath:IndexPath) -> BannerViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Banner", for: indexPath) as! BannerViewCell
+        
+        cell.backgroundColor = .black
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.5
+        cell.layer.shadowOffset = CGSize(width: 0, height: 10)
+        
+        let data = movieData?.results[indexPath.row]
+        
+        if let imageURL = URL(string: "\(baseImgURL)\(data?.backdrop_path ?? "")"){
+            DataManager.shared.fetchImage(url: imageURL, completionHandler: { (image,url) in
+                
+                DispatchQueue.main.async {
+                    if imageURL == url {
+                        cell.imageView.image = image
+                    }
+                }
+                
+            })
+        }
+        
+        cell.titleLabel.text = data?.title
+        cell.tag = data?.id ?? 0
+        return cell
+    }
 }
 
 extension TopRateTableViewCell:UICollectionViewDataSource, UICollectionViewDelegate {
@@ -163,59 +208,10 @@ extension TopRateTableViewCell:UICollectionViewDataSource, UICollectionViewDeleg
         
         switch dataType {
         case .TV:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCard", for: indexPath) as! VideoCardViewCell
-            
-            
-            cell.layer.shadowColor = UIColor.black.cgColor
-            cell.layer.shadowOpacity = 0.5
-            cell.layer.shadowOffset = CGSize(width: 0, height: 10)
-            
-            let data = tvData?.results[indexPath.row]
-            
-            if let imageURL = URL(string: "\(baseImgURL)\(data?.poster_path ?? "")"){
-                DataManager.shared.fetchImage(url: imageURL, completionHandler: { (image,url) in
-                    
-                    DispatchQueue.main.async {
-                        if imageURL == url {
-                            cell.videoImageView.image = image
-                        }
-                    }
-                    
-                })
-            }
-            
-            cell.dateLabel.text = data?.first_air_date
-            cell.titleLabel.text = data?.name
-            cell.voteLabel.text = String(data?.vote_average ?? 0.0)
-            cell.tag = data?.id ?? 0
-            
-            return cell
+            return videoCardCell(collectionView,indexPath: indexPath)
         case .Movie:
+            return bannerViewCell(collectionView, indexPath: indexPath)
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Banner", for: indexPath) as! BannerViewCell
-            
-            cell.backgroundColor = .black
-            cell.layer.shadowColor = UIColor.black.cgColor
-            cell.layer.shadowOpacity = 0.5
-            cell.layer.shadowOffset = CGSize(width: 0, height: 10)
-            
-            let data = movieData?.results[indexPath.row]
-            
-            if let imageURL = URL(string: "\(baseImgURL)\(data?.backdrop_path ?? "")"){
-                DataManager.shared.fetchImage(url: imageURL, completionHandler: { (image,url) in
-                    
-                    DispatchQueue.main.async {
-                        if imageURL == url {
-                            cell.imageView.image = image
-                        }
-                    }
-                    
-                })
-            }
-            
-            cell.titleLabel.text = data?.title
-            cell.tag = data?.id ?? 0
-            return cell
         default:
             return UICollectionViewCell()
         }
