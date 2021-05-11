@@ -55,7 +55,7 @@ enum APIURL:String {
             resource = "/movie/popular"
         }
         
-        return "\(apiVersion)\(resource)?api_key=\(apiKey)"
+        return "\(apiVersion)\(resource)?api_key=\(apiKey)&language=zh-TW"
     }
     
 }

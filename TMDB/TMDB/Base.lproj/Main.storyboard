@@ -35,43 +35,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QNo-AF-TE1">
-                                <rect key="frame" x="0.0" y="75" width="414" height="738"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yFl-dD-3HA">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i8e-Zp-n0u">
-                                    <size key="itemSize" width="200" height="400"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Kez-4c-q8C">
-                                <rect key="frame" x="134.5" y="44" width="145" height="32"/>
-                                <segments>
-                                    <segment title="TV"/>
-                                    <segment title="Movie"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onChangeWithSender:" destination="BYZ-38-t0r" eventType="valueChanged" id="RuK-Sa-xeh"/>
-                                </connections>
-                            </segmentedControl>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopRateViewCell" rowHeight="185" id="a4G-ct-yuU" customClass="TopRateTableViewCell" customModule="TMDB" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="185"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="a4G-ct-yuU" id="jK4-PO-YIM">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="185"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7R4-2c-VdR">
+                                                    <rect key="frame" x="10.5" y="4.5" width="393" height="176"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Je9-Xp-AFM">
+                                                        <size key="itemSize" width="128" height="128"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells/>
+                                                </collectionView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7R4-2c-VdR" firstAttribute="width" secondItem="jK4-PO-YIM" secondAttribute="width" multiplier="0.95" id="DGa-Rg-Hiw"/>
+                                                <constraint firstItem="7R4-2c-VdR" firstAttribute="height" secondItem="jK4-PO-YIM" secondAttribute="height" multiplier="0.95" id="JyD-Kr-rjl"/>
+                                                <constraint firstItem="7R4-2c-VdR" firstAttribute="centerX" secondItem="jK4-PO-YIM" secondAttribute="centerX" id="b3z-bp-4Sv"/>
+                                                <constraint firstItem="7R4-2c-VdR" firstAttribute="centerY" secondItem="jK4-PO-YIM" secondAttribute="centerY" id="qBW-ks-Qec"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="collectionView" destination="7R4-2c-VdR" id="7KU-Am-ll4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Kez-4c-q8C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bjc-Wu-Vbx"/>
-                            <constraint firstItem="Kez-4c-q8C" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Nt9-bj-HEr"/>
-                            <constraint firstItem="QNo-AF-TE1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="RJx-wl-Xma"/>
-                            <constraint firstItem="QNo-AF-TE1" firstAttribute="top" secondItem="Kez-4c-q8C" secondAttribute="bottom" id="TtH-dH-bhI"/>
-                            <constraint firstItem="Kez-4c-q8C" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.35" id="Z24-hS-Wk0"/>
-                            <constraint firstItem="QNo-AF-TE1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="o4d-3b-UFw"/>
-                            <constraint firstItem="QNo-AF-TE1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wAs-H6-04h"/>
+                            <constraint firstItem="yFl-dD-3HA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="521-9A-n4m"/>
+                            <constraint firstItem="yFl-dD-3HA" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Akr-qP-SLK"/>
+                            <constraint firstItem="yFl-dD-3HA" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="duw-9E-yiz"/>
+                            <constraint firstItem="yFl-dD-3HA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="jYa-Ue-DgK"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="topRated" image="tray.and.arrow.up" catalog="system" id="3C4-Fl-lKk"/>
                     <connections>
-                        <outlet property="topRateCollectionView" destination="QNo-AF-TE1" id="7gY-U2-FzZ"/>
+                        <outlet property="tableView" destination="yFl-dD-3HA" id="zlC-AJ-neX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

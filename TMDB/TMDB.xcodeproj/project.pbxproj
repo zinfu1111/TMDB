@@ -21,6 +21,9 @@
 		9CD4F97926424E30004ED9F0 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F97826424E30004ED9F0 /* PopularViewController.swift */; };
 		9CD4F97C26424E5C004ED9F0 /* TopRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F97B26424E5C004ED9F0 /* TopRateViewController.swift */; };
 		9CD4F98126426D39004ED9F0 /* ViewSizeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F98026426D39004ED9F0 /* ViewSizeConfig.swift */; };
+		9CF69133264A1ED8000E9BCB /* TopRateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF69132264A1ED8000E9BCB /* TopRateTableViewCell.swift */; };
+		9CF69137264A1F5C000E9BCB /* BannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF69135264A1F5C000E9BCB /* BannerViewCell.swift */; };
+		9CF69138264A1F5C000E9BCB /* BannerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CF69136264A1F5C000E9BCB /* BannerViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		9CD4F97826424E30004ED9F0 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
 		9CD4F97B26424E5C004ED9F0 /* TopRateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRateViewController.swift; sourceTree = "<group>"; };
 		9CD4F98026426D39004ED9F0 /* ViewSizeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeConfig.swift; sourceTree = "<group>"; };
+		9CF69132264A1ED8000E9BCB /* TopRateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRateTableViewCell.swift; sourceTree = "<group>"; };
+		9CF69135264A1F5C000E9BCB /* BannerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewCell.swift; sourceTree = "<group>"; };
+		9CF69136264A1F5C000E9BCB /* BannerViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				9C7BA464263F9BB40086839B /* VideoCardViewCell.swift */,
+				9CF69132264A1ED8000E9BCB /* TopRateTableViewCell.swift */,
+				9CF69135264A1F5C000E9BCB /* BannerViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -115,6 +123,7 @@
 		9CA4465426467D650063F7BF /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				9CF69136264A1F5C000E9BCB /* BannerViewCell.xib */,
 				9C7BA465263F9BB40086839B /* VideoCardViewCell.xib */,
 			);
 			path = Xib;
@@ -199,6 +208,7 @@
 				9C15EBD6263682F7007CA696 /* LaunchScreen.storyboard in Resources */,
 				9C15EBD3263682F7007CA696 /* Assets.xcassets in Resources */,
 				9C7BA467263F9BB40086839B /* VideoCardViewCell.xib in Resources */,
+				9CF69138264A1F5C000E9BCB /* BannerViewCell.xib in Resources */,
 				9C15EBD1263682F1007CA696 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +227,8 @@
 				9C15EBF526370AF1007CA696 /* APIServiceConfig.swift in Sources */,
 				9CD4F98126426D39004ED9F0 /* ViewSizeConfig.swift in Sources */,
 				9CD4F97C26424E5C004ED9F0 /* TopRateViewController.swift in Sources */,
+				9CF69133264A1ED8000E9BCB /* TopRateTableViewCell.swift in Sources */,
+				9CF69137264A1F5C000E9BCB /* BannerViewCell.swift in Sources */,
 				9CD4F97926424E30004ED9F0 /* PopularViewController.swift in Sources */,
 				9C15EBCC263682F1007CA696 /* SceneDelegate.swift in Sources */,
 				9C15EBE226369301007CA696 /* DataManager.swift in Sources */,

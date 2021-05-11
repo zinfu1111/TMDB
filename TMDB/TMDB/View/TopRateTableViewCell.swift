@@ -1,63 +1,108 @@
 //
-//  PopularViewController.swift
+//  TopRateTableViewCell.swift
 //  TMDB
 //
-//  Created by 連振甫 on 2021/5/5.
+//  Created by 連振甫 on 2021/5/11.
 //
 
 import UIKit
 
-class PopularViewController: UIViewController {
-
-    @IBOutlet weak var popularCollectionView:UICollectionView!
+class TopRateTableViewCell: UITableViewCell {
+    
+    
+    @IBOutlet weak var collectionView:UICollectionView!
     
     var tvData:TVResponse?
     var movieData:MovieResponse?
     var dataType:DataType = .TV
     let baseImgURL = "https://image.tmdb.org/t/p/w500/"
+    var currentIndex = 0
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
-        self.overrideUserInterfaceStyle = .light
-        
-        self.popularCollectionView.delegate = self
-        self.popularCollectionView.dataSource = self
-        self.popularCollectionView.register(UINib(nibName: "VideoCardViewCell", bundle: nil), forCellWithReuseIdentifier: "VideoCard")
-        
-        updateDataView()
-        
-    }
-    
-    @IBAction func onChange(sender: UISegmentedControl) {
-        dataType = DataType(rawValue: sender.selectedSegmentIndex) ?? .TV
-        popularCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
-        updateDataView()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
     }
 
-    func updateDataView() {
-        switch dataType {
-        case .TV:
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.collectionView.layer.cornerRadius = self.collectionView.frame.height * 0.05
+        
+        
+        if let layout = collectionView as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.register(UINib(nibName: "BannerViewCell", bundle: nil), forCellWithReuseIdentifier: "Banner")
+        
+        if dataType == .TV {
             fetchTVData()
-            break
-        case .Movie:
+        }
+        else {
             fetchMovieData()
-            break
-        default:
-            break
+        }
+        
+        let timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(loopBanner), userInfo: nil, repeats: true)
+        
+        
+    }
+    
+    @objc func loopBanner(){
+        if dataType == .TV {
+            
+            guard let tvCount = self.tvData?.results.count, tvCount != 0 else { return }
+            
+            DispatchQueue.main.async {
+                
+                var indexPath: IndexPath
+                self.currentIndex += 1
+                
+                if self.currentIndex < tvCount {
+                    indexPath = IndexPath(item: self.currentIndex, section: 0)
+                    self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+                }else{
+                    self.currentIndex = 0
+                    indexPath = IndexPath(item: self.currentIndex, section: 0)
+                    self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+                    
+                }
+            }
+        }else{
+            guard let movieCount = self.movieData?.results.count, movieCount != 0 else { return }
+            
+            DispatchQueue.main.async {
+                
+                var indexPath: IndexPath
+                self.currentIndex += 1
+                
+                if self.currentIndex < movieCount {
+                    indexPath = IndexPath(item: self.currentIndex, section: 0)
+                    self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+                }else{
+                    self.currentIndex = 0
+                    indexPath = IndexPath(item: self.currentIndex, section: 0)
+                    self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+                    
+                }
+            }
         }
     }
     
     func fetchTVData(){
-        DataManager.shared.fetchTVData(type: .Popular, completion: { [self] result in
+        DataManager.shared.fetchTVData(type: .TopRate, completion: { [self] result in
             switch result {
             case .success(let tv):
                 tvData = tv
                 DispatchQueue.main.async {
-                    popularCollectionView.reloadData()
+                    collectionView.reloadData()
                 }
                 
             case .failure(let error):
@@ -68,12 +113,12 @@ class PopularViewController: UIViewController {
     }
     
     func fetchMovieData() {
-        DataManager.shared.fetchMovieData(type: .Popular, completion: { [self] result in
+        DataManager.shared.fetchMovieData(type: .TopRate, completion: { [self] result in
             switch result {
             case .success(let movies):
                 movieData = movies
                 DispatchQueue.main.async {
-                    popularCollectionView.reloadData()
+                    collectionView.reloadData()
                 }
                 
             case .failure(let error):
@@ -85,8 +130,7 @@ class PopularViewController: UIViewController {
 
 }
 
-
-extension PopularViewController:UICollectionViewDataSource, UICollectionViewDelegate {
+extension TopRateTableViewCell:UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch dataType {
         case .TV:
@@ -99,9 +143,9 @@ extension PopularViewController:UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCard", for: indexPath) as! VideoCardViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Banner", for: indexPath) as! BannerViewCell
         
-        
+        cell.backgroundColor = .black
         cell.layer.shadowColor = UIColor.black.cgColor
         cell.layer.shadowOpacity = 0.5
         cell.layer.shadowOffset = CGSize(width: 0, height: 10)
@@ -110,53 +154,48 @@ extension PopularViewController:UICollectionViewDataSource, UICollectionViewDele
         case .TV:
             let data = tvData?.results[indexPath.row]
             
-            if let imageURL = URL(string: "\(baseImgURL)\(data?.poster_path ?? "")"){
+            if let imageURL = URL(string: "\(baseImgURL)\(data?.backdrop_path ?? "")"){
                 DataManager.shared.fetchImage(url: imageURL, completionHandler: { (image,url) in
                     
                     DispatchQueue.main.async {
                         if imageURL == url {
-                            cell.videoImageView.image = image
+                            cell.imageView.image = image
                         }
                     }
                     
                 })
             }
             
-            cell.dateLabel.text = data?.first_air_date
             cell.titleLabel.text = data?.name
-            cell.voteLabel.text = String(data?.vote_average ?? 0.0)
             cell.tag = data?.id ?? 0
             return cell
         case .Movie:
             let data = movieData?.results[indexPath.row]
             
-            if let imageURL = URL(string: "\(baseImgURL)\(data?.poster_path ?? "")"){
+            if let imageURL = URL(string: "\(baseImgURL)\(data?.backdrop_path ?? "")"){
                 DataManager.shared.fetchImage(url: imageURL, completionHandler: { (image,url) in
                     
                     DispatchQueue.main.async {
                         if imageURL == url {
-                            cell.videoImageView.image = image
+                            cell.imageView.image = image
                         }
                     }
                     
                 })
             }
             
-            cell.dateLabel.text = data?.release_date
             cell.titleLabel.text = data?.title
-            cell.voteLabel.text = String(data?.vote_average ?? 0.0)
             cell.tag = data?.id ?? 0
             return cell
         default:
             return UICollectionViewCell()
         }
         
-        
-        
     }
+    
 }
 
-extension PopularViewController:UICollectionViewDelegateFlowLayout {
+extension TopRateTableViewCell:UICollectionViewDelegateFlowLayout {
     
     /// 設定 Collection View 距離 Super View上、下、左、下間的距離
     ///
@@ -167,7 +206,7 @@ extension PopularViewController:UICollectionViewDelegateFlowLayout {
     /// - Returns: _
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
     }
     
@@ -180,7 +219,7 @@ extension PopularViewController:UICollectionViewDelegateFlowLayout {
     /// - Returns: _
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: videoCardWidth, height: videoCardHeight)
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         
     }
     
@@ -193,7 +232,7 @@ extension PopularViewController:UICollectionViewDelegateFlowLayout {
     /// - Returns: _
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         
-        return 10
+        return 0
         
     }
     
