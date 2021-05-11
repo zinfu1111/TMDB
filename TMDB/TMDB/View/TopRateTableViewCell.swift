@@ -33,27 +33,43 @@ class TopRateTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.collectionView.layer.cornerRadius = self.collectionView.frame.height * 0.05
-        
-        
         if let layout = collectionView as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
+        self.collectionView.register(UINib(nibName: "BannerViewCell", bundle: nil), forCellWithReuseIdentifier: "Banner")
+        self.collectionView.register(UINib(nibName: "VideoCardViewCell", bundle: nil), forCellWithReuseIdentifier: "VideoCard")
+        
+        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.collectionView.register(UINib(nibName: "BannerViewCell", bundle: nil), forCellWithReuseIdentifier: "Banner")
         
         if dataType == .TV {
-            fetchTVData()
+            setTVStyle()
         }
-        else {
-            fetchMovieData()
+        else
+        {
+            setMovieStyle()
         }
-        
-        let timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(loopBanner), userInfo: nil, repeats: true)
-        
         
     }
+    
+    func setTVStyle() {
+        //設定scroll樣式
+        collectionView.isPagingEnabled = false
+        //抓取電視資料
+        fetchTVData()
+    }
+    
+    func setMovieStyle() {
+        //設定scroll樣式
+        self.collectionView.layer.cornerRadius = self.collectionView.frame.height * 0.05
+        collectionView.isPagingEnabled = true
+        //抓取資料
+        fetchMovieData()
+        //設定Banner輪播
+        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(loopBanner), userInfo: nil, repeats: true)
+    }
+    
     
     @objc func loopBanner(){
         if dataType == .TV {
@@ -143,33 +159,46 @@ extension TopRateTableViewCell:UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Banner", for: indexPath) as! BannerViewCell
         
-        cell.backgroundColor = .black
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOpacity = 0.5
-        cell.layer.shadowOffset = CGSize(width: 0, height: 10)
         
         switch dataType {
         case .TV:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCard", for: indexPath) as! VideoCardViewCell
+            
+            
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.shadowOpacity = 0.5
+            cell.layer.shadowOffset = CGSize(width: 0, height: 10)
+            
             let data = tvData?.results[indexPath.row]
             
-            if let imageURL = URL(string: "\(baseImgURL)\(data?.backdrop_path ?? "")"){
+            if let imageURL = URL(string: "\(baseImgURL)\(data?.poster_path ?? "")"){
                 DataManager.shared.fetchImage(url: imageURL, completionHandler: { (image,url) in
                     
                     DispatchQueue.main.async {
                         if imageURL == url {
-                            cell.imageView.image = image
+                            cell.videoImageView.image = image
                         }
                     }
                     
                 })
             }
             
+            cell.dateLabel.text = data?.first_air_date
             cell.titleLabel.text = data?.name
+            cell.voteLabel.text = String(data?.vote_average ?? 0.0)
             cell.tag = data?.id ?? 0
+            
             return cell
         case .Movie:
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Banner", for: indexPath) as! BannerViewCell
+            
+            cell.backgroundColor = .black
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.shadowOpacity = 0.5
+            cell.layer.shadowOffset = CGSize(width: 0, height: 10)
+            
             let data = movieData?.results[indexPath.row]
             
             if let imageURL = URL(string: "\(baseImgURL)\(data?.backdrop_path ?? "")"){
@@ -219,7 +248,11 @@ extension TopRateTableViewCell:UICollectionViewDelegateFlowLayout {
     /// - Returns: _
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        let width = (dataType == .TV) ? videoCardWidth : collectionView.frame.width
+        let height = (dataType == .TV) ? collectionView.frame.height*0.9 : collectionView.frame.height
+        
+        
+        return CGSize(width: width, height: height)
         
     }
     
@@ -232,7 +265,7 @@ extension TopRateTableViewCell:UICollectionViewDelegateFlowLayout {
     /// - Returns: _
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         
-        return 0
+        return (dataType == .TV) ? videoCardWidth*0.1 : 0
         
     }
     
