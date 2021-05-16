@@ -8,6 +8,10 @@
 import Foundation
 
 
+struct APIURLParam {
+    var id = ""
+}
+
 enum APIURL:String {
     
     public var baseURL:String {
@@ -26,22 +30,14 @@ enum APIURL:String {
         return  "3"
     }
     
-    public var route: String {
-        return getRoute()
-    }
-    
-    public var url: URL {
-        let urlStr = "\(baseURL)\(route)"
-        return URL(string: urlStr)!
-    }
-    
-    
     case tv_GetTopRated
     case tv_GetPopular
+    case tv_Detail
     case movie_GetTopRated
     case movie_GetPopular
+    case movie_Detail
     
-    public func getRoute() -> String {
+    public func getRoute(data:APIURLParam) -> String {
         var resource = ""
         
         switch self {
@@ -49,13 +45,22 @@ enum APIURL:String {
             resource = "/tv/top_rated"
         case .tv_GetPopular:
             resource = "/tv/popular"
+        case .tv_Detail:
+            resource = "/tv/\(data.id)"
         case .movie_GetTopRated:
             resource = "/movie/top_rated"
         case .movie_GetPopular:
             resource = "/movie/popular"
+        case .movie_Detail:
+            resource = "/movie/\(data.id)"
         }
         
-        return "\(apiVersion)\(resource)?api_key=\(apiKey)&language=zh-TW"
+        return "\(baseURL)\(apiVersion)\(resource)?api_key=\(apiKey)&language=zh-TW"
     }
     
+}
+extension String {
+    public var url:URL {
+        URL(string: self)!
+    }
 }

@@ -20,7 +20,8 @@ struct MovieModel:Codable {
     var adult:Bool
     var overview:String
     var release_date:String
-    var genre_ids:[Int]
+    var genre_ids:[Int]?
+    var genres:[Genres]?
     var id:Int
     var original_title:String
     var original_language:String
@@ -31,4 +32,9 @@ struct MovieModel:Codable {
     var video:Bool
     var vote_average:Float
     
+}
+
+struct Genres:Codable {
+    let id:Int
+    let name:String
 }

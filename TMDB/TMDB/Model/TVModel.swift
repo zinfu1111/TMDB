@@ -24,7 +24,8 @@ struct TVModel:Codable {
     var overview:String
     var first_air_date:String
     var origin_country:[String] = []
-    var genre_ids:[Int] = []
+    var genre_ids:[Int]?
+    var genres:[Genres]?
     var original_language:String
     var name:String
     var vote_count:Int

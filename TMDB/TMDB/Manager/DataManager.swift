@@ -26,11 +26,12 @@ class DataManager {
     func fetchMovieData(type: ShowType,completion: @escaping (Result<MovieResponse, Error>) -> Void) {
         
         var url:URL?
+        let urlPathData = APIURLParam()
         
         if type == .TopRate {
-            url = APIURL.movie_GetTopRated.url
+            url = APIURL.movie_GetTopRated.getRoute(data: urlPathData).url
         }else {
-            url = APIURL.movie_GetPopular.url
+            url = APIURL.movie_GetPopular.getRoute(data: urlPathData).url
         }
         
         guard let taskURL = url else { return }
@@ -51,13 +52,35 @@ class DataManager {
         task.resume()
     }
     
+    func fetchMovieDetail(id:String,completion: @escaping (Result<MovieModel, Error>) -> Void) {
+        
+        let urlPathData = APIURLParam(id: id)
+        
+        let taskURL = APIURL.movie_Detail.getRoute(data: urlPathData).url
+        
+        let task = URLSession.shared.dataTask(with: taskURL) { (data, response, error) in
+            if let data = data {
+                do {
+                    let jsonDecoder = JSONDecoder()
+                    let detail = try jsonDecoder.decode(MovieModel.self, from: data)
+                    completion(.success(detail))
+                } catch {
+                    completion(.failure(error))
+                }
+            } else if let error = error {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
     func fetchTVData(type: ShowType,completion: @escaping (Result<TVResponse, Error>) -> Void) {
         var url:URL?
-        
+        let urlPathData = APIURLParam()
         if type == .TopRate {
-            url = APIURL.tv_GetTopRated.url
+            url = APIURL.tv_GetTopRated.getRoute(data: urlPathData).url
         }else {
-            url = APIURL.tv_GetPopular.url
+            url = APIURL.tv_GetPopular.getRoute(data: urlPathData).url
         }
         
         guard let taskURL = url else { return }
@@ -68,6 +91,28 @@ class DataManager {
                     let jsonDecoder = JSONDecoder()
                     let topRatedResponse = try jsonDecoder.decode(TVResponse.self, from: data)
                     completion(.success(topRatedResponse))
+                } catch {
+                    completion(.failure(error))
+                }
+            } else if let error = error {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
+    func fetchTVDetail(id:String,completion: @escaping (Result<TVModel, Error>) -> Void) {
+        
+        let urlPathData = APIURLParam(id: id)
+        
+        let taskURL = APIURL.tv_Detail.getRoute(data: urlPathData).url
+        
+        let task = URLSession.shared.dataTask(with: taskURL) { (data, response, error) in
+            if let data = data {
+                do {
+                    let jsonDecoder = JSONDecoder()
+                    let detail = try jsonDecoder.decode(TVModel.self, from: data)
+                    completion(.success(detail))
                 } catch {
                     completion(.failure(error))
                 }
