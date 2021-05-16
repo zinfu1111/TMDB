@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PopularViewController: UIViewController {
+class PopularViewController: UIViewController,ViewRouteProtocol {
 
     @IBOutlet weak var popularCollectionView:UICollectionView!
     
@@ -154,6 +154,53 @@ extension PopularViewController:UICollectionViewDataSource, UICollectionViewDele
         
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
+        guard let id = (dataType == .Movie) ? movieData?.results[indexPath.row].id.toString() : tvData?.results[indexPath.row].id.toString() else { return }
+        
+        switch dataType {
+        case .TV:
+            showTVDetail(id)
+            break
+        case .Movie:
+            showMoiveDetail(id)
+            break
+        default:
+            break
+        }
+        
+    }
+    
+    func showTVDetail(_ id:String) {
+        DataManager.shared.fetchTVDetail(id: id, completion: {[self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let tv):
+                    let viewModel = DetailViewModel(type: .TV, tvData: tv, movieData: nil)
+                    showDetailViewController(viewModel: viewModel)
+                case .failure(let error):
+                    showMessageBox(title: "錯誤", msg: "\(error.localizedDescription)")
+                }
+            }
+        })
+    }
+    
+    func showMoiveDetail(_ id:String) {
+        DataManager.shared.fetchMovieDetail(id: id, completion: {[self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let movie):
+                    let viewModel = DetailViewModel(type: .Movie, tvData: nil, movieData: movie)
+                    showDetailViewController(viewModel: viewModel)
+                case .failure(let error):
+                    showMessageBox(title: "錯誤", msg: "\(error.localizedDescription)")
+                }
+            }
+        })
+    }
+    
 }
 
 extension PopularViewController:UICollectionViewDelegateFlowLayout {

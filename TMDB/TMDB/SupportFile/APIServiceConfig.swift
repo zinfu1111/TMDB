@@ -64,3 +64,8 @@ extension String {
         URL(string: self)!
     }
 }
+extension Int {
+    public func toString() -> String {
+        return String(self)
+    }
+}
