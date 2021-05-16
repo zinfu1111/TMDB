@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol TopRateTableViewCellDelegate {
-    func showDetail(type:DataType, id:String)
-}
-
 class TopRateTableViewCell: UITableViewCell {
     
     
@@ -21,7 +17,7 @@ class TopRateTableViewCell: UITableViewCell {
     var dataType:DataType = .TV
     let baseImgURL = "https://image.tmdb.org/t/p/w500/"
     var currentIndex = 0
-    var delegate:TopRateTableViewCellDelegate?
+    var delegate:ViewRouteProtocol?
     
 
     override func awakeFromNib() {
@@ -198,8 +194,44 @@ class TopRateTableViewCell: UITableViewCell {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let id = (dataType == .Movie) ? movieData?.results[indexPath.row].id.toString() : tvData?.results[indexPath.row].id.toString() else { return }
-        delegate?.showDetail(type: dataType, id: id)
-        
+        switch dataType {
+        case .TV:
+            showTVDetail(id)
+            break
+        case .Movie:
+            showMoiveDetail(id)
+            break
+        default:
+            break
+        }
+    }
+    
+    func showTVDetail(_ id:String) {
+        DataManager.shared.fetchTVDetail(id: id, completion: {[self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let tv):
+                    let viewModel = DetailViewModel(type: .TV, tvData: tv, movieData: nil)
+                    delegate?.showDetailViewController(viewModel: viewModel)
+                case .failure(let error):
+                    delegate?.showMessageBox(title: "錯誤", msg: "\(error.localizedDescription)",action: nil)
+                }
+            }
+        })
+    }
+    
+    func showMoiveDetail(_ id:String) {
+        DataManager.shared.fetchMovieDetail(id: id, completion: {[self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let movie):
+                    let viewModel = DetailViewModel(type: .Movie, tvData: nil, movieData: movie)
+                    delegate?.showDetailViewController(viewModel: viewModel)
+                case .failure(let error):
+                    delegate?.showMessageBox(title: "錯誤", msg: "\(error.localizedDescription)",action: nil)
+                }
+            }
+        })
     }
 }
 

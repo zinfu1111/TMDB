@@ -19,6 +19,7 @@ extension ViewRouteProtocol {
         let detailViewController = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         
         detailViewController.viewModel = viewModel
+        detailViewController.modalTransitionStyle = .crossDissolve
         detailViewController.modalPresentationStyle = .fullScreen
         present(detailViewController, animated: true, completion: nil)
     }
