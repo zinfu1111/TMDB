@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TopRateTableViewCellDelegate {
+    func showDetail(type:DataType, id:String)
+}
+
 class TopRateTableViewCell: UITableViewCell {
     
     
@@ -17,6 +21,7 @@ class TopRateTableViewCell: UITableViewCell {
     var dataType:DataType = .TV
     let baseImgURL = "https://image.tmdb.org/t/p/w500/"
     var currentIndex = 0
+    var delegate:TopRateTableViewCellDelegate?
     
 
     override func awakeFromNib() {
@@ -188,6 +193,13 @@ class TopRateTableViewCell: UITableViewCell {
         cell.titleLabel.text = data?.title
         cell.tag = data?.id ?? 0
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let id = (dataType == .Movie) ? movieData?.results[indexPath.row].id.toString() : tvData?.results[indexPath.row].id.toString() else { return }
+        delegate?.showDetail(type: dataType, id: id)
+        
     }
 }
 

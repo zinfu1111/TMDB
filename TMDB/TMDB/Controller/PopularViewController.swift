@@ -181,7 +181,7 @@ extension PopularViewController:UICollectionViewDataSource, UICollectionViewDele
                     let viewModel = DetailViewModel(type: .TV, tvData: tv, movieData: nil)
                     showDetailViewController(viewModel: viewModel)
                 case .failure(let error):
-                    showMessageBox(title: "錯誤", msg: "\(error.localizedDescription)")
+                    showMessageBox(title: "錯誤", msg: "\(error.localizedDescription)",action: nil)
                 }
             }
         })
@@ -195,7 +195,7 @@ extension PopularViewController:UICollectionViewDataSource, UICollectionViewDele
                     let viewModel = DetailViewModel(type: .Movie, tvData: nil, movieData: movie)
                     showDetailViewController(viewModel: viewModel)
                 case .failure(let error):
-                    showMessageBox(title: "錯誤", msg: "\(error.localizedDescription)")
+                    showMessageBox(title: "錯誤", msg: "\(error.localizedDescription)",action: nil)
                 }
             }
         })

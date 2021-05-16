@@ -10,7 +10,7 @@ import Foundation
 
 protocol ViewRouteProtocol:UIViewController {
     func showDetailViewController(viewModel:DetailViewModel)
-    func showMessageBox(title:String, msg:String)
+    func showMessageBox(title:String, msg:String, action:Void?)
 }
 
 extension ViewRouteProtocol {
@@ -23,9 +23,11 @@ extension ViewRouteProtocol {
         present(detailViewController, animated: true, completion: nil)
     }
     
-    func showMessageBox(title:String, msg:String) {
+    func showMessageBox(title:String, msg:String, action:Void?) {
         let alertVC = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        let checkAction = UIAlertAction(title: "確認", style: .default, handler: nil)
+        let checkAction = UIAlertAction(title: "確認", style: .default,handler: {(action: UIAlertAction!) -> Void in
+            action
+        })
         alertVC.addAction(checkAction)
         present(alertVC, animated: true, completion: nil)
     }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TopRateViewController: UIViewController{
+class TopRateViewController: UIViewController,ViewRouteProtocol,TopRateTableViewCellDelegate{
     
     @IBOutlet weak var tableView:UITableView!
 
@@ -23,6 +23,46 @@ class TopRateViewController: UIViewController{
         
     }
     
+    func showDetail(type: DataType, id: String) {
+        switch type {
+        case .Movie:
+            showMoiveDetail(id)
+            break
+        case .TV:
+            showTVDetail(id)
+            break
+        default:
+            break
+        }
+    }
+    
+    func showTVDetail(_ id:String) {
+        DataManager.shared.fetchTVDetail(id: id, completion: {[self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let tv):
+                    let viewModel = DetailViewModel(type: .TV, tvData: tv, movieData: nil)
+                    showDetailViewController(viewModel: viewModel)
+                case .failure(let error):
+                    showMessageBox(title: "錯誤", msg: "\(error.localizedDescription)",action: nil)
+                }
+            }
+        })
+    }
+    
+    func showMoiveDetail(_ id:String) {
+        DataManager.shared.fetchMovieDetail(id: id, completion: {[self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let movie):
+                    let viewModel = DetailViewModel(type: .Movie, tvData: nil, movieData: movie)
+                    showDetailViewController(viewModel: viewModel)
+                case .failure(let error):
+                    showMessageBox(title: "錯誤", msg: "\(error.localizedDescription)",action: nil)
+                }
+            }
+        })
+    }
     
     
 }
@@ -37,6 +77,7 @@ extension TopRateViewController:UITableViewDelegate,UITableViewDataSource{
         
         tableView.rowHeight = indexPath.row == 1 ? screenHeight*0.55 : screenHeight*0.35
         cell.dataType = (indexPath.row == 1) ? .TV : .Movie
+        cell.delegate = self
         return cell
         
     }
