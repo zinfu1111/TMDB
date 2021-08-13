@@ -36,11 +36,17 @@ enum APIURL:String {
     case movie_GetTopRated
     case movie_GetPopular
     case movie_Detail
+    case newToken
+    case login
     
     public func getRoute(data:APIURLParam) -> String {
         var resource = ""
         
         switch self {
+        case .newToken:
+            resource = "/authentication/token/new"
+        case .login:
+            resource = "/authentication/token/validate_with_login"
         case .tv_GetTopRated:
             resource = "/tv/top_rated"
         case .tv_GetPopular:

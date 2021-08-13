@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DHK-c0-Tia">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DHK-c0-Tia">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -40,7 +40,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopRateViewCell" rowHeight="185" id="a4G-ct-yuU" customClass="TopRateTableViewCell" customModule="TMDB" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="185"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="320" height="185"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="a4G-ct-yuU" id="jK4-PO-YIM">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="185"/>
@@ -80,10 +80,23 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fOz-yp-eX5">
+                                        <rect key="frame" x="277" y="0.0" width="33" height="45.5"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="person" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="login" destination="BYZ-38-t0r" eventType="touchUpInside" id="gsD-Ab-KWC"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.01176470588" green="0.1450980392" blue="0.25490196079999999" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="fOz-yp-eX5" firstAttribute="top" secondItem="3AG-Q0-b3y" secondAttribute="top" id="2gF-t0-xLa"/>
+                                    <constraint firstAttribute="bottom" secondItem="fOz-yp-eX5" secondAttribute="bottom" id="QSN-BP-Xtg"/>
                                     <constraint firstItem="S18-aI-Au7" firstAttribute="centerX" secondItem="3AG-Q0-b3y" secondAttribute="centerX" id="flc-tT-5tv"/>
+                                    <constraint firstAttribute="trailing" secondItem="fOz-yp-eX5" secondAttribute="trailing" constant="10" id="mEd-NK-GVI"/>
                                     <constraint firstItem="S18-aI-Au7" firstAttribute="centerY" secondItem="3AG-Q0-b3y" secondAttribute="centerY" id="q4X-2i-Bpv"/>
                                 </constraints>
                             </view>
@@ -113,7 +126,6 @@
         <!--Detail View Controller-->
         <scene sceneID="CbY-U9-3IW">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aOj-FJ-YBp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="DetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QDj-I6-6rS" customClass="DetailViewController" customModule="TMDB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G8k-Hz-2MP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -292,6 +304,7 @@
                         <outlet property="voteLabel" destination="Q3h-B1-YLq" id="LDK-rb-xIz"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aOj-FJ-YBp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2101.875" y="-999.29577464788736"/>
         </scene>
@@ -363,6 +376,7 @@
     </scenes>
     <resources>
         <image name="arrowshape.turn.up.left" catalog="system" width="128" height="106"/>
+        <image name="person" catalog="system" width="128" height="117"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="square.3.stack.3d.top.fill" catalog="system" width="128" height="124"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>

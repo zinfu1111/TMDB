@@ -23,6 +23,25 @@ class DataManager {
     static let shared = DataManager()
     let imageCache = NSCache<NSURL, UIImage>()
     
+    var token = ""
+    
+    func createTaskAndDecode<T>(url:URL,type: T.Type,completion: @escaping (Result<T, Error>) -> Void) where T : Decodable {
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let data = data {
+                do {
+                    let jsonDecoder = JSONDecoder()
+                    let dataResponse = try jsonDecoder.decode(type, from: data)
+                    completion(.success(dataResponse))
+                } catch {
+                    completion(.failure(error))
+                }
+            } else if let error = error {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
     func fetchMovieData(type: ShowType,completion: @escaping (Result<MovieResponse, Error>) -> Void) {
         
         var url:URL?
@@ -35,21 +54,7 @@ class DataManager {
         }
         
         guard let taskURL = url else { return }
-        
-        let task = URLSession.shared.dataTask(with: taskURL) { (data, response, error) in
-            if let data = data {
-                do {
-                    let jsonDecoder = JSONDecoder()
-                    let popularResponse = try jsonDecoder.decode(MovieResponse.self, from: data)
-                    completion(.success(popularResponse))
-                } catch {
-                    completion(.failure(error))
-                }
-            } else if let error = error {
-                completion(.failure(error))
-            }
-        }
-        task.resume()
+        createTaskAndDecode(url: taskURL, type: MovieResponse.self, completion: completion)
     }
     
     func fetchMovieDetail(id:String,completion: @escaping (Result<MovieModel, Error>) -> Void) {
@@ -57,21 +62,7 @@ class DataManager {
         let urlPathData = APIURLParam(id: id)
         
         let taskURL = APIURL.movie_Detail.getRoute(data: urlPathData).url
-        
-        let task = URLSession.shared.dataTask(with: taskURL) { (data, response, error) in
-            if let data = data {
-                do {
-                    let jsonDecoder = JSONDecoder()
-                    let detail = try jsonDecoder.decode(MovieModel.self, from: data)
-                    completion(.success(detail))
-                } catch {
-                    completion(.failure(error))
-                }
-            } else if let error = error {
-                completion(.failure(error))
-            }
-        }
-        task.resume()
+        createTaskAndDecode(url: taskURL, type: MovieModel.self, completion: completion)
     }
     
     func fetchTVData(type: ShowType,completion: @escaping (Result<TVResponse, Error>) -> Void) {
@@ -84,21 +75,7 @@ class DataManager {
         }
         
         guard let taskURL = url else { return }
-        
-        let task = URLSession.shared.dataTask(with: taskURL) { (data, response, error) in
-            if let data = data {
-                do {
-                    let jsonDecoder = JSONDecoder()
-                    let topRatedResponse = try jsonDecoder.decode(TVResponse.self, from: data)
-                    completion(.success(topRatedResponse))
-                } catch {
-                    completion(.failure(error))
-                }
-            } else if let error = error {
-                completion(.failure(error))
-            }
-        }
-        task.resume()
+        createTaskAndDecode(url: taskURL, type: TVResponse.self, completion: completion)
     }
     
     func fetchTVDetail(id:String,completion: @escaping (Result<TVModel, Error>) -> Void) {
@@ -106,21 +83,7 @@ class DataManager {
         let urlPathData = APIURLParam(id: id)
         
         let taskURL = APIURL.tv_Detail.getRoute(data: urlPathData).url
-        
-        let task = URLSession.shared.dataTask(with: taskURL) { (data, response, error) in
-            if let data = data {
-                do {
-                    let jsonDecoder = JSONDecoder()
-                    let detail = try jsonDecoder.decode(TVModel.self, from: data)
-                    completion(.success(detail))
-                } catch {
-                    completion(.failure(error))
-                }
-            } else if let error = error {
-                completion(.failure(error))
-            }
-        }
-        task.resume()
+        createTaskAndDecode(url: taskURL, type: TVModel.self, completion: completion)
     }
     
     func fetchImage(url: URL, completionHandler: @escaping (UIImage?,URL) -> ()) {
@@ -137,4 +100,6 @@ class DataManager {
             }
         }.resume()
     }
+    
+    
 }
